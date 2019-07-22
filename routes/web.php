@@ -2,6 +2,10 @@
 
 Route::get('/', 'ContactsController@index');
 
+Route::get('lang/{locale}', 'LocalizationController@lang');
+
+Route::get('/search', 'ContactsController@search');
+
 Route::prefix('contacts')->group(function(){
   Route::get('create', 'ContactsController@create')->name('contacts.create');
   Route::post('store', 'ContactsController@store')->name('contacts.store');

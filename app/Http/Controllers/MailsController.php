@@ -40,7 +40,7 @@ class MailsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Mail::findOrFail($id)->update($request->all());
+        $mail = Mail::findOrFail($id)->update($request->all());
 
         session()->flash('message', 'The dates have been updated.');
 

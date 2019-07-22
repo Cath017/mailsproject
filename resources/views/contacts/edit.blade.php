@@ -6,22 +6,27 @@
           @csrf
           @method('PATCH')
           <div class="form-group">
-          <input type="text" name='first_name' placeholder="First Name" class="form-control" value="{{$contact->first_name}}">
+            <label for="first_name">{{__('messages.first_name')}}</label>
+          <input type="text" name='first_name' class="form-control" value="{{$contact->first_name}}">
           </div>
           <div class="form-group">
-              <input type="text" name='middle_name' placeholder="Middle Name" class="form-control" value="{{$contact->middle_name}}">
+            <label for="middle_name">{{__('messages.middle_name')}}</label>
+            <input type="text" name='middle_name' class="form-control" value="{{$contact->middle_name}}">
           </div>
           <div class="form-group">
-              <input type="text" name='last_name' placeholder="Last Name" class="form-control" value="{{$contact->last_name}}">
+            <label for="last_name">{{__('messages.last_name')}}</label>
+            <input type="text" name='last_name' class="form-control" value="{{$contact->last_name}}">
           </div>
           <div class="form-group">
-              <input type="text" name='address' placeholder="Address" class="form-control" value="{{$contact->address}}">
+            <label for="address">{{__('messages.address')}}</label>
+            <input type="text" name='address' class="form-control" value="{{$contact->address}}">
           </div>
           <div class="form-group">
-              <input type="text" name='state' placeholder="State" class="form-control" value="{{$contact->state}}">
+            <label for="country">{{__('messages.country')}}</label>
+            <input type="text" name='state' class="form-control" value="{{$contact->state}}">
           </div>
           <div class="form-group">
-            <input type="submit" value="Edit Contact" class="form-control btn btn-outline-success">
+            <input type="submit" value="{{__('messages.update_btn')}}" class="form-control btn btn-outline-success">
           </div>
         </form>
       </div>

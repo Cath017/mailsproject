@@ -4,7 +4,7 @@
 <div class="row mt-5">
   <div class="col-md-6">
     <div class="card">
-      <div class="card-header">Address</div>
+      <div class="card-header">{{__('messages.address')}}</div>
       <div class="card-body">
           <div class="row">
             <div class="col-sm-6">
@@ -18,13 +18,13 @@
             </div>
             <div class="col-sm-6">
             <div class="form-group">
-                <a class="btn btn-outline-primary" href="{{route('contacts.edit',$contact->id)}}">Update Contact</a>
+              <a class="btn btn-outline-primary" href="{{route('contacts.edit',$contact->id)}}">{{__('messages.update_btn')}}</a>
             </div>
             <div class="form-group">
               <form class="delete" action="{{action('ContactsController@destroy', $contact->id)}}" method="POST">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                 @method('DELETE')
-                <input type="submit" value="Delete Contact" class="btn btn-outline-danger">
+                <input type="submit" value="{{__('messages.delete_btn')}}" class="btn btn-outline-danger">
               </form>
             </div>
           </div>
@@ -34,8 +34,8 @@
     <table class="table">
         <thead>
           <tr>
-            <th>Delivered</th>
-            <th>Posted</th>
+            <th>{{__('messages.delivered')}}</th>
+            <th>{{__('messages.posted')}}</th>
           </tr>
         </thead>
         <tbody>
@@ -47,7 +47,7 @@
             <form class="delete" action="{{action('MailsController@destroy', $mail->id)}}" method="POST">
               <input type="hidden" name="_token" value="{{ csrf_token() }}" />
               @method('DELETE')
-              <input type="submit" value="Delete" class="btn btn-outline-danger">
+              <input type="submit" value="{{__('messages.delete_btn')}}" class="btn btn-outline-danger">
             </form>
           </td>
           <td>
@@ -70,15 +70,15 @@
       @csrf
       {{-- <input type="hidden" name="contact_id" value="{{$contact->id}}"> --}}
       <div class="form-group">
-        <label for="delivered">Delivered List: </label>
+        <label for="delivered">{{__('messages.delivered')}}: </label>
         <input autocomplete="off" type="text" name="delivered" data-role="date" class="form-control date">
       </div>
       <div class="form-group">
-        <label for="posted">Posted List: </label>
+        <label for="posted">{{__('messages.posted')}}: </label>
           <input autocomplete="off" data-role="date" name="posted" type="text" class="form-control date">
       </div>
       <div class="form-group">
-          <input type="submit" value="Add Dates" class="form-control btn btn-outline-success">
+        <input type="submit" value="{{__('messages.add_btn')}}" class="form-control btn btn-outline-success">
         </div>
     </form> 
   </div>
@@ -88,7 +88,7 @@
 
 @section('scripts')
 
-<script src="{{asset('js/app.js')}}"></script>
+{{-- <script src="{{asset('js/app.js')}}"></script> --}}
 {{-- <script src="http://code.jquery.com/jquery-2.2.4.min.js"
     integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
     crossorigin="anonymous"></script>  --}}

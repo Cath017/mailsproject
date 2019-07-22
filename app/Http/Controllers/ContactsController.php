@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ContactRequest;
 use App\Contact;
 use App\Mail;
+use DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
 
@@ -21,6 +22,15 @@ class ContactsController extends Controller
         $contacts = Contact::orderBy('last_name','asc')->get();
 
         return view('contacts.index',compact('contacts'));
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->get('search');
+        $contacts = DB::table('contacts')->where('state', 'like', '%'.$search.'%')
+                                        ->orWhere('first_name', 'like', '%'.$search.'%')
+                                        ->orWhere('last_name', 'like', '%'.$search.'%')->get();
+        return view('contacts.index', compact('contacts'));
     }
 
     /**

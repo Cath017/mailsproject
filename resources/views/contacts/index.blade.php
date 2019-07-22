@@ -7,11 +7,11 @@
   <thead>
   <tr>
     <th>Id</th>
-    <th>Firstname</th>
-    <th>Middlename</th>
-    <th>Lastname</th>
-    <th>Address</th>
-    <th>Country</th>
+    <th>{{__('messages.first_name')}}</th>
+    <th>{{__('messages.middle_name')}}</th>
+    <th>{{__('messages.last_name')}}</th>
+    <th>{{__('messages.address')}}</th>
+    <th>{{__('messages.country')}}</th>
   </tr>
   </thead>
   <tbody>
@@ -23,7 +23,7 @@
     <td>{{$contact->last_name}}</td>
     <td>{{$contact->address}}</td>
     <td>{{$contact->state}}</td>
-    <td><a class="btn btn-outline-success" href="{{route('contacts.show',$contact->id)}}">View</a></td>
+    <td><a class="btn btn-outline-success" href="{{route('contacts.show',$contact->id)}}">{{__('messages.view_btn')}}</a></td>
   </tr>
   @endforeach
   </tbody>
