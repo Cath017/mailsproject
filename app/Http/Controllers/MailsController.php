@@ -16,9 +16,8 @@ class MailsController extends Controller
      */
     public function store(Contact $contact)
     {
-
-    
-       $mail = $contact->addMail(new Mail(request(['delivered', 'posted'])));
+        $contact->addMail(request('delivered'), request('posted'));
+        //    $mail = $contact->addMail(new Mail(request(['delivered', 'posted'])));
         
         // Mail::create([
         //     'delivered'=> request('delivered'),
@@ -26,7 +25,7 @@ class MailsController extends Controller
         //     'contact_id'=> $contact->id
         // ]);
 
-        
+        session()->flash('message', 'The dates have been added');
 
         return back();
     }
@@ -43,6 +42,8 @@ class MailsController extends Controller
     {
         Mail::findOrFail($id)->update($request->all());
 
+        session()->flash('message', 'The dates have been updated.');
+
         return redirect()->back();
     }
 
@@ -55,6 +56,8 @@ class MailsController extends Controller
     public function destroy($id)
     {
         Mail::findOrFail($id)->delete();
+
+        session()->flash('message', 'The dates have been deleted!');
 
         return redirect()->back();
     }

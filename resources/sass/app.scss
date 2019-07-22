@@ -7,13 +7,21 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-.dates tbody tr td a{
-  display: none;
+// .dates tbody tr td a{
+//   display: none;
+// }
+
+// .dates tbody tr:hover td a{
+  
+//   display: block;
+  
+// }
+
+.table tbody tr td a.update{
+  display:none;
 }
 
-.dates tbody tr:hover td a{
-  
-  display: block;
-  
+.table tbody tr:hover td a.update{
+  display:block;
 }
 

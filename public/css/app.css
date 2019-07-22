@@ -10644,11 +10644,11 @@ a.text-dark:focus {
   }
 }
 
-.dates tbody tr td a {
+.table tbody tr td a.update {
   display: none;
 }
 
-.dates tbody tr:hover td a {
+.table tbody tr:hover td a.update {
   display: block;
 }
 

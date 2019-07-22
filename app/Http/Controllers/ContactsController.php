@@ -41,13 +41,6 @@ class ContactsController extends Controller
      */
     public function store(ContactRequest $request)
     {
-        // $this->validate($request, [
-        //     'first_name' =>'required',
-        //     'last_name' =>'required',
-        //     'address' =>'required',
-        //     'state' =>'required',
-        // ]);
-
         Contact::create($request->all());
 
         return redirect('/');
@@ -61,8 +54,6 @@ class ContactsController extends Controller
      */
     public function show(Contact $contact)
     {
-       
-        
         return view('contacts.show', compact('contact'));
     }
 
@@ -72,10 +63,8 @@ class ContactsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Contact $contact)
     {
-        $contact = Contact::findOrFail($id);
-
         return view('contacts.edit', compact('contact'));
     }
 
@@ -86,16 +75,9 @@ class ContactsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ContactRequest $request, $id)
+    public function update(ContactRequest $request, Contact $contact)
     {
-        // $this->validate($request, [
-        //     'first_name' =>'required',
-        //     'last_name' =>'required',
-        //     'address' =>'required',
-        //     'state' =>'required',
-        // ]);
-
-        Contact::findorFail($id)->update($request->all());
+        $contact->update($request->all());
 
         return redirect('/');
     }
@@ -111,7 +93,6 @@ class ContactsController extends Controller
         delete();
 
         return redirect('/');
-
     }
 
 }

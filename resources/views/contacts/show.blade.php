@@ -31,7 +31,7 @@
       </div>
     </div>
     </div>
-    <table class="table dates">
+    <table class="table">
         <thead>
           <tr>
             <th>Delivered</th>
@@ -41,11 +41,8 @@
         <tbody>
           @foreach($contact->mails as $mail)
           <tr>
-          <td>{{$mail->delivered->format('d.m.Y')}}</td>
-          <td>{{$mail->posted->format('d.m.Y')}}</td>
-          <td>
-          <a class="btn btn-outline-primary" data-toggle="modal" data-target="#edit-modal{{$mail->id}}" href="#">Update</a>
-          </td>
+          <td class="delivered">{{$mail->delivered->format('d.m.Y')}}</td>
+          <td class="posted">{{$mail->posted->format('d.m.Y')}}</td>
           <td>
             <form class="delete" action="{{action('MailsController@destroy', $mail->id)}}" method="POST">
               <input type="hidden" name="_token" value="{{ csrf_token() }}" />
@@ -53,12 +50,22 @@
               <input type="submit" value="Delete" class="btn btn-outline-danger">
             </form>
           </td>
+          <td>
+              <a class="update {{$mail->id }}" data-toggle="modal" data-target="#edit-modal" href="#"><i class="fa fa-pencil-square-o fa-3x" style="color:black" aria-hidden="true"></i></a>
+          </td>
           </tr>
           @endforeach
         </tbody>
       </table>
   </div>
   <div class="col-md-6">
+      @if($flash = session('message'))
+  <div id="flash-message" class="alert alert-success">
+   
+    {{$flash}}
+    
+  </div>
+  @endif
   <form action="/contacts/{{$contact->id}}/mails" method="POST">
       @csrf
       {{-- <input type="hidden" name="contact_id" value="{{$contact->id}}"> --}}
@@ -90,17 +97,32 @@
 
 
 <script>
-  $(function(){
+  $(document).ready(function(){
+
+    $(function(){
       $('.date').each(function(){
           $(this).datepicker({ dateFormat: 'dd.mm.yy' });
       });
+    });
+
+    $(".delete").on("submit", function(){
+      return confirm("Do you want to delete this item?");
+    });
+
+    $('#flash-message').delay(2000).fadeOut(2000);
   });
+
+    $('.update').on('click', function(e){
+      const id = $(e.target).parent().attr('class').split(' ')[1];
+      const delivered = $(e.target).parents('tr').find('td.delivered').text();
+      const posted = $(e.target).parents('tr').find('td.posted').text();
+
+      $('.modal form').attr('action', `http://mail.test/contacts/${id}/mails`);
+      $('.modal input[name=delivered]').val(delivered);
+      $('.modal input[name=posted]').val(posted);
+    })
+  
 </script>
 
-<script>
-  $(".delete").on("submit", function(){
-      return confirm("Do you want to delete this item?");
-  });
-</script>
 @endsection
 

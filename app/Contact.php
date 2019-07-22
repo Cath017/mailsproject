@@ -18,9 +18,11 @@ class Contact extends Model
         return $this->hasMany(Mail::class);
     }
 
-    public function addMail(Mail $mail)
+    public function addMail($delivered, $posted)
     {   
-        $this->mails()->save($mail);
+        // dd($data);
+        $this->mails()->create(compact('delivered', 'posted'));
+        // $this->mails()->save($mail);
         
         
     }
