@@ -22,5 +22,13 @@ return [
   'delivered' => 'Doručená pošta',
   'posted' => 'Odoslaná pošta',
   'create_btn' => 'Vytvoriť',
+
+  'save_btn' => 'Uložiť',
+  'close_btn' => 'Zavrieť',
+  'modal_head' => 'Zmeniť dátumy',
+
+  'msg_add' => 'Dátumy boli pridané.',
+  'msg_update' => 'Dátumy boli upravené,',
+  'msg_delete' => 'Dátumy boli vymazané.',
   
 ];

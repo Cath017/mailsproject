@@ -17,7 +17,9 @@
                 <p>{{$contact->state}}</p>
             </div>
             <div class="col-sm-6">
-            <div class="form-group">
+{{-- Update / Delete Contact Buttons --}}
+            @if(!Auth::guest())
+            <div class="form-group">  
               <a class="btn btn-outline-primary" href="{{route('contacts.edit',$contact->id)}}">{{__('messages.update_btn')}}</a>
             </div>
             <div class="form-group">
@@ -27,6 +29,7 @@
                 <input type="submit" value="{{__('messages.delete_btn')}}" class="btn btn-outline-danger">
               </form>
             </div>
+            @endif
           </div>
       </div>
     </div>
@@ -43,6 +46,8 @@
           <tr>
           <td class="delivered">{{$mail->delivered->format('d.m.Y')}}</td>
           <td class="posted">{{$mail->posted->format('d.m.Y')}}</td>
+{{-- Update / Delete Mail Buttons --}}
+          @if(!Auth::guest())
           <td>
             <form class="delete" action="{{action('MailsController@destroy', $mail->id)}}" method="POST">
               <input type="hidden" name="_token" value="{{ csrf_token() }}" />
@@ -53,6 +58,7 @@
           <td>
               <a class="update {{$mail->id }}" data-toggle="modal" data-target="#edit-modal" href="#"><i class="fa fa-pencil-square-o fa-3x" style="color:black" aria-hidden="true"></i></a>
           </td>
+          @endif
           </tr>
           @endforeach
         </tbody>
@@ -66,9 +72,9 @@
     
   </div>
   @endif
+  @if(!Auth::guest())
   <form action="/contacts/{{$contact->id}}/mails" method="POST">
       @csrf
-      {{-- <input type="hidden" name="contact_id" value="{{$contact->id}}"> --}}
       <div class="form-group">
         <label for="delivered">{{__('messages.delivered')}}: </label>
         <input autocomplete="off" type="text" name="delivered" data-role="date" class="form-control date">
@@ -81,21 +87,14 @@
         <input type="submit" value="{{__('messages.add_btn')}}" class="form-control btn btn-outline-success">
         </div>
     </form> 
+  @endif
   </div>
 </div>
 </div>
 @stop
 
 @section('scripts')
-
-{{-- <script src="{{asset('js/app.js')}}"></script> --}}
-{{-- <script src="http://code.jquery.com/jquery-2.2.4.min.js"
-    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-    crossorigin="anonymous"></script>  --}}
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
-
-
 <script>
   $(document).ready(function(){
 
@@ -123,6 +122,5 @@
     })
   
 </script>
-
 @endsection
 

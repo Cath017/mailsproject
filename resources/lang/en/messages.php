@@ -22,4 +22,12 @@ return [
   'delivered' => 'Delivered',
   'posted' => 'Posted',
   'create_btn' => 'Create',
+
+  'save_btn' => 'Save',
+  'close_btn' => 'Close',
+  'modal_head' => 'Change Dates',
+
+  'msg_add' => 'The dates have been added.',
+  'msg_update' => 'The dates have been updated.',
+  'msg_delete' => 'The dates have been deleted.',
 ];

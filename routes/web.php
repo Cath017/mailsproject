@@ -22,3 +22,9 @@ Route::prefix('/contacts/{contact}')->group(function(){
 });
 
 
+
+Auth::routes(['verify' => true]);
+
+Route::get('/', 'HomeController@index');
+
+Route::resource('users', 'UsersController');

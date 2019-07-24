@@ -25,7 +25,7 @@ class MailsController extends Controller
         //     'contact_id'=> $contact->id
         // ]);
 
-        session()->flash('message', 'The dates have been added');
+        session()->flash('message', __('messages.msg_add'));
 
         return back();
     }
@@ -42,7 +42,7 @@ class MailsController extends Controller
     {
         $mail = Mail::findOrFail($id)->update($request->all());
 
-        session()->flash('message', 'The dates have been updated.');
+        session()->flash('message', __('messages.msg_update'));
 
         return redirect()->back();
     }
@@ -57,7 +57,7 @@ class MailsController extends Controller
     {
         Mail::findOrFail($id)->delete();
 
-        session()->flash('message', 'The dates have been deleted!');
+        session()->flash('message', __('messages.msg_delete'));
 
         return redirect()->back();
     }

@@ -23,7 +23,9 @@
     <td>{{$contact->last_name}}</td>
     <td>{{$contact->address}}</td>
     <td>{{$contact->state}}</td>
+    {{-- @if(Auth::check()) --}}
     <td><a class="btn btn-outline-success" href="{{route('contacts.show',$contact->id)}}">{{__('messages.view_btn')}}</a></td>
+    {{-- @endif --}}
   </tr>
   @endforeach
   </tbody>
