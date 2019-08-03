@@ -8,6 +8,11 @@ use App\Contact;
 
 class MailsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -44,7 +49,7 @@ class MailsController extends Controller
 
         session()->flash('message', __('messages.msg_update'));
 
-        return redirect()->back();
+        return back();
     }
 
     /**
@@ -59,6 +64,6 @@ class MailsController extends Controller
 
         session()->flash('message', __('messages.msg_delete'));
 
-        return redirect()->back();
+        return back();
     }
 }

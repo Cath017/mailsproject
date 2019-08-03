@@ -5,3 +5,11 @@
     </div>
   @endforeach
 @endif
+
+
+{{-- Unauthorized page --}}
+@if (Session::has('error'))
+  <div id="flash-message" class="alert alert-danger">
+    {{ Session::get('error') }}
+  </div>
+@endif

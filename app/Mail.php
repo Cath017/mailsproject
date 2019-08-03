@@ -7,13 +7,14 @@ use Carbon\Carbon;
 
 class Mail extends Model
 {
-    protected $fillable = ['contact_id', 'delivered', 'posted'];
+    protected $fillable = ['contact_id', 'delivered', 'posted', 'user_id'];
 
     protected $casts = [
         'delivered' => 'date',
         'posted' => 'date',
     ];
 
+    // Tranform the type to Carbon object
     public function setDeliveredAttribute($value){
         $this->attributes['delivered'] = (new Carbon($value));
     }
@@ -23,6 +24,10 @@ class Mail extends Model
     }
 
     public function contact(){
-        return $this->belongsTo('App\Contact');
+        return $this->belongsTo(Contact::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/', 'ContactsController@index');
+Route::get('/', 'ContactsController@index')->middleware('verified');
 
 Route::get('lang/{locale}', 'LocalizationController@lang');
 
@@ -25,6 +25,6 @@ Route::prefix('/contacts/{contact}')->group(function(){
 
 Auth::routes(['verify' => true]);
 
-Route::get('/', 'HomeController@index');
+// Route::get('/', 'HomeController@index');
 
-Route::resource('users', 'UsersController');
+Route::resource('users', 'UsersController')->middleware('admin');

@@ -7,6 +7,7 @@ use App\Http\Requests\ContactRequest;
 use App\Contact;
 use App\Mail;
 use DB;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 
@@ -20,7 +21,7 @@ class ContactsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except'=>['show', 'search']]);
+        $this->middleware('auth');
     }
 
     /**
@@ -30,17 +31,23 @@ class ContactsController extends Controller
      */
     public function index()
     {
-        $contacts = Contact::orderBy('last_name','asc')->get();
+        // Check if is admin
+        if (Auth::user()->isAdmin()) {
+            $contacts = Contact::orderBy('last_name', 'asc')->get();
+        } else {
+            $contacts = auth()->user()->contacts->sortBy('last_name');
+        }
 
-        return view('contacts.index',compact('contacts'));
+        return view('contacts.index', compact('contacts'));
     }
 
     public function search(Request $request)
     {
+        // Search bar method
         $search = $request->get('search');
-        $contacts = DB::table('contacts')->where('state', 'like', '%'.$search.'%')
-                                        ->orWhere('first_name', 'like', '%'.$search.'%')
-                                        ->orWhere('last_name', 'like', '%'.$search.'%')->get();
+        $contacts = DB::table('contacts')->where('state', 'like', '%' . $search . '%')
+            ->orWhere('first_name', 'like', '%' . $search . '%')
+            ->orWhere('last_name', 'like', '%' . $search . '%')->get();
         return view('contacts.index', compact('contacts'));
     }
 
@@ -62,7 +69,14 @@ class ContactsController extends Controller
      */
     public function store(ContactRequest $request)
     {
-        Contact::create($request->all());
+        Contact::create([
+            'first_name' => request('first_name'),
+            'middle_name' => request('middle_name'),
+            'last_name' => request('last_name'),
+            'address' => request('address'),
+            'state' => request('state'),
+            'user_id' => auth()->user()->id
+        ]);
 
         return redirect('/');
     }
@@ -75,6 +89,10 @@ class ContactsController extends Controller
      */
     public function show(Contact $contact)
     {
+        if ($contact->isUnauthorizedUser($contact->user_id)) {
+            return redirect('/')->with('error', __('messages.un_page'));
+        }
+
         return view('contacts.show', compact('contact'));
     }
 
@@ -86,6 +104,10 @@ class ContactsController extends Controller
      */
     public function edit(Contact $contact)
     {
+        if ($contact->isUnauthorizedUser($contact->user_id)) {
+            return redirect('/')->with('error', __('messages.un_page'));
+        }
+
         return view('contacts.edit', compact('contact'));
     }
 
@@ -111,9 +133,12 @@ class ContactsController extends Controller
      */
     public function destroy(Contact $contact)
     {
-        delete();
+        if ($contact->isUnauthorizedUser($contact->user_id)) {
+            return redirect('/')->with('error', __('messages.un_page'));
+        }
+
+        $contact->delete();
 
         return redirect('/');
     }
-
 }
