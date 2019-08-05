@@ -40,18 +40,20 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate(request(),[
-            'name'=>'required',
-            'email'=>'required',
+        $this->validate(request(), [
+            'name' => 'required',
+            'email' => 'required',
         ]);
 
         $user = User::findOrFail($id);
-        $user->update([
-            'name' => request('name'),
-            'email'=>request('email'),
-            'role'=>request('role'),
-            'password'=>bcrypt(request('password'))
-        ]);
+        if (trim($request->password) == '') {
+            $input = $request->except('password');
+        } else {
+            $input = $request->all();
+            $input['password'] = bcrypt(request('password'));
+        }
+
+        $user->update($input);
 
         return redirect('/users');
     }
