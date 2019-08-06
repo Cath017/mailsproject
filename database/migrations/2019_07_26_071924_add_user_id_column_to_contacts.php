@@ -14,7 +14,7 @@ class AddUserIdColumnToContacts extends Migration
     public function up()
     {
         Schema::table('contacts', function (Blueprint $table) {
-            $table->integer('user_id')->index()->nullable();
+            $table->unsignedBigInteger('user_id')->index()->nullable();
         });
     }
 
