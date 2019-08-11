@@ -45,9 +45,11 @@ class ContactsController extends Controller
     {
         // Search bar method
         $search = $request->get('search');
-        $contacts = DB::table('contacts')->where('state', 'like', '%' . $search . '%')
-            ->orWhere('first_name', 'like', '%' . $search . '%')
-            ->orWhere('last_name', 'like', '%' . $search . '%')->get();
+        $user_id = ['user_id', auth()->user()->id];
+        $contacts = DB::table('contacts')
+            ->where([$user_id, ['state', 'like', '%' . $search . '%']])
+            ->orWhere([$user_id, ['first_name', 'like', '%' . $search . '%']])
+            ->orWhere([$user_id, ['last_name', 'like', '%' . $search . '%']])->get();
         return view('contacts.index', compact('contacts'));
     }
 

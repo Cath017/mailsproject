@@ -21,9 +21,13 @@ class MailsController extends Controller
      */
     public function store(Contact $contact)
     {
-        $contact->addMail(request('delivered'), request('posted'));
+        $this->validate(request(), [
+            'delivered' => 'required'
+        ]);
+
+        $contact->addMail(request('delivered'), request('posted') ?? null);
         //    $mail = $contact->addMail(new Mail(request(['delivered', 'posted'])));
-        
+
         // Mail::create([
         //     'delivered'=> request('delivered'),
         //     'posted'=> request('posted'),

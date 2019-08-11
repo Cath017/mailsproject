@@ -49,7 +49,7 @@
         @foreach($contact->mails as $mail)
           <tr>
             <td class="delivered">{{$mail->delivered->format('d.m.Y')}}</td>
-            <td class="posted">{{$mail->posted->format('d.m.Y')}}</td>
+            <td class="posted">{{isset($mail->posted) ? $mail->posted->format('d.m.Y') : ''}}</td>
             {{-- Update / Delete Mail Buttons --}}
             <td>
               <form class="delete" action="{{action('MailsController@destroy', $mail->id)}}" method="POST">
